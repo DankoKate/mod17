@@ -1,0 +1,38 @@
+def binary_search(arr, search):
+    left = 0
+    right = len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == search:
+            return mid
+        elif arr[mid] < search:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return None
+
+def sort_list(arr):
+    return sorted(arr)
+
+numbers = input("Введите числа через пробел: ").split()
+
+try:
+    numbers = [int(x) for x in numbers]
+except ValueError:
+    print("Ошибка: введены некорректные данные!")
+else:
+    search_number = input("Введите число, для которого нужно найти позицию: ")
+    
+    try:
+        search_number = int(search_number)
+    except ValueError:
+        print("Ошибка: введено некорректное число!")
+    else:
+        sorted_numbers = sort_list(numbers)
+        position = binary_search(sorted_numbers, search_number)
+        if position is None:
+            print("Заданное число отсутствует в последовательности")
+        else:
+            lower_number = sorted_numbers[position - 1] if position > 0 else None
+            greater_number = sorted_numbers[position] if position < len(sorted_numbers) - 1 else None
+            print(f"Число на позиции {position}. Наименьшее число меньше заданного: {lower_number}. Наибольшее число больше или равно заданному: {greater_number}")
